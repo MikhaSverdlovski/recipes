@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15.2
+    container_name: recipes_project-db-1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: recipes
+    volumes:
+      - recipes_project_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - recipes_project_network
+
+  web:
+    build: .
+    container_name: recipes_project-web-1
+    command: /bin/sh -c "sleep 10 && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      - recipes_project_network
+
+volumes:
+  recipes_project_postgres_data:
+
+networks:
+  recipes_project_network:
+    driver: bridge
