@@ -9,23 +9,27 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        {% block content %}
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            <li><a href="{% url 'recipe_search' %}">Search Recipes</a></li> <!-- Добавленная ссылка на поиск -->
+        </ul>
+    </nav>
+</header>
+<main>
+    {% block content %}
         <!-- Content goes here -->
-        {% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2025 Recipes Project</p>
-    </footer>
+    {% endblock %}
+</main>
+<footer>
+    <p>&copy; 2025 Recipes Project</p>
+</footer>
 </body>
 </html>

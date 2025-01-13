@@ -129,3 +129,15 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# перенаправление после успешного входа
+LOGIN_REDIRECT_URL = '/'
+# перенаправление после выхода
+LOGOUT_REDIRECT_URL = '/'
+
+
+# Для правильной работы с изображениями
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
