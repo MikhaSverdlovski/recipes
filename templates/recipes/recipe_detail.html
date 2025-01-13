@@ -8,15 +8,15 @@
 
 {% block content %}
     <h1>{{ recipe.title }}</h1>
-    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Description:</strong> {{ recipe.description }}</p>
     <p><strong>Instructions:</strong></p>
     <p>{{ recipe.cooking_steps }}</p>
     <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
-    
+
     {% if request.user == recipe.author %}
         <!-- Ссылка на редактирование, если пользователь является автором -->
         <a href="{% url 'edit_recipe' recipe_id=recipe.id %}">Edit Recipe</a>
     {% endif %}
-    
+
     <a href="{% url 'home' %}">Back to Home</a>
 {% endblock %}

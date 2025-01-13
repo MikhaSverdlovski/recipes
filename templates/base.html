@@ -20,6 +20,10 @@
                 <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
             <li><a href="{% url 'recipe_search' %}">Search Recipes</a></li> <!-- Добавленная ссылка на поиск -->
+            <li><a href="{% url 'add_recipe' %}">Add Recipe</a></li> <!-- Добавленная ссылка на поиск -->
+            {% if user.is_authenticated %}
+                <li>Hello, {{ user.username }}!</li>
+            {% endif %}
         </ul>
     </nav>
 </header>
