@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Recipes Project{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v={{ timestamp }}">
 </head>
 <body>
 <header>
     <nav>
-        <ul>
+        <ul class="nav-list">
             <li><a href="{% url 'home' %}">Home</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -19,10 +19,10 @@
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
-            <li><a href="{% url 'recipe_search' %}">Search Recipes</a></li> <!-- Добавленная ссылка на поиск -->
-            <li><a href="{% url 'add_recipe' %}">Add Recipe</a></li> <!-- Добавленная ссылка на поиск -->
+            <li><a href="{% url 'recipe_search' %}">Search Recipes</a></li>
             {% if user.is_authenticated %}
-                <li>Hello, {{ user.username }}!</li>
+                <li><a href="{% url 'add_recipe' %}">Add Recipe</a></li>
+                <li class="welcome-message">Hello, {{ user.username }}!</li>
             {% endif %}
         </ul>
     </nav>
@@ -34,6 +34,7 @@
 </main>
 <footer>
     <p>&copy; 2025 Recipes Project</p>
+    <p>All rights reserved</p>
 </footer>
 </body>
 </html>

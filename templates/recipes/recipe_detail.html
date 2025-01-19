@@ -9,8 +9,13 @@
 {% block content %}
     <h1>{{ recipe.title }}</h1>
     <p><strong>Description:</strong> {{ recipe.description }}</p>
+    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
     <p><strong>Instructions:</strong></p>
-    <p>{{ recipe.cooking_steps }}</p>
+    <ul>
+        {% for step in instructions %}
+            <li>{{ step }}</li>
+        {% endfor %}
+    </ul>
     <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
 
     {% if request.user == recipe.author %}

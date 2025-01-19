@@ -24,6 +24,9 @@ SECRET_KEY = 'django-insecure-y=rg&a@^@k_iosw=8z##os5kigp2^-hs@5^vv8esjfq+wk(g()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -46,6 +49,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+MIDDLEWARE += [
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'recipes_project.urls'

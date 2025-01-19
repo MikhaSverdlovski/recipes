@@ -18,7 +18,8 @@ def home(request):
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+    instructions = recipe.cooking_steps.split("\\n")
+    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe, 'instructions': instructions})
 
 def register(request):
     if request.method == 'POST':
