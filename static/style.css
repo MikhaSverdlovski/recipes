@@ -83,3 +83,7 @@ footer p {
         margin: 5px 0;
     }
 }
+
+.search-class {
+    flex-direction: column;
+}
