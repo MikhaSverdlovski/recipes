@@ -3,14 +3,16 @@
 {% block title %}Home - Recipes{% endblock %}
 
 {% block content %}
-    <h1>Welcome to Recipes</h1>
+    <h1 class="h1">Welcome to Recipes</h1>
     <p>Here are 5 random recipes:</p>
-    <ul>
+    
+    <div class="recipe-grid">
         {% for recipe in recipes %}
-            <li>
+            <div class="recipe-card">
                 <h2><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a></h2>
                 <p>{{ recipe.description|truncatewords:20 }}</p>
-            </li>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+    
 {% endblock %}
