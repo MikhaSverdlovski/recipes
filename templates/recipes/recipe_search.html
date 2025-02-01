@@ -1,32 +1,46 @@
-<!-- templates/recipes/recipe_search.html -->
-
 {% extends 'base.html' %}
 
-{% block title %}
-    Recipe Search
-{% endblock %}
+{% block title %}Recipe Search - TASTYYYY{% endblock %}
 
 {% block content %}
-    <div class="search-class">
-        <div>
-            <h1>Search for Recipes</h1>
-        </div>
-        <div>
-            <form method="get" action="{% url 'recipe_search' %}">
-                {% csrf_token %}
-                {{ form }}
-                <button type="submit">Search</button>
-            </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Заголовок -->
+                    <h1 class="card-title display-4 text-center mb-4">Search for Recipes</h1>
+
+                    <!-- Форма поиска -->
+                    <form method="get" action="{% url 'recipe_search' %}" class="mb-4">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-sm-9">
+                                {{ form }}
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search-heart"></i> Search</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Результаты поиска -->
+                    <h2 class="mb-3">Results:</h2>
+                    {% if recipes %}
+                        <ul class="list-group">
+                            {% for recipe in recipes %}
+                                <li class="list-group-item">
+                                    <a href="{% url 'recipe_detail' recipe_id=recipe.id %}" class="text-decoration-none">
+                                        {{ recipe.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No recipes found.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-    <h2>Results:</h2>
-    <ul>
-        {% for recipe in recipes %}
-            <li>
-                <a href="{% url 'recipe_detail' recipe_id=recipe.id %}">{{ recipe.title }}</a>
-            </li>
-        {% empty %}
-            <p>No recipes found.</p>
-        {% endfor %}
-    </ul>
+</div>
 {% endblock %}

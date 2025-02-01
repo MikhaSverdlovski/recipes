@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     recipes = Recipe.objects.all()
-    random_recipes = random.sample(list(recipes), min(len(recipes), 10))
+    random_recipes = random.sample(list(recipes), min(len(recipes), 12))
     return render(request, 'recipes/home.html', {'recipes': random_recipes})
 
 
