@@ -18,7 +18,7 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = ['title', 'description', 'cooking_steps', 'cooking_time', 'image', 'categories']
         widgets = {
-            'categories': forms.CheckboxSelectMultiple,
+            'categories': forms.SelectMultiple,
         }
 
 
