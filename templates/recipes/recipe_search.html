@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <!-- Заголовок -->
@@ -13,12 +13,12 @@
 
                     <!-- Форма поиска -->
                     <form method="get" action="{% url 'recipe_search' %}" class="mb-4">
-                        <div class="row g-3 align-items-center">
+                        <div class="row g-3 align-items-center w-100">
                             <div class="col-sm-9">
                                 {{ form }}
                             </div>
-                            <div class="col-sm-3">
-                                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search-heart"></i> Search</button>
+                            <div class="col">
+                                <button type="submit" class="btn btn-info w-50"><i class="bi bi-search-heart"></i> Search</button>
                             </div>
                         </div>
                     </form>

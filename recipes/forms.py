@@ -23,4 +23,4 @@ class RecipeForm(forms.ModelForm):
 
 
 class RecipeSearchForm(forms.Form):
-    query = forms.CharField(max_length=100, required=False, label='Search Recipes')
+    query = forms.CharField(max_length=300, required=False, label='Search Recipes')

@@ -5,15 +5,15 @@
 {% block content %}
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <!-- Заголовок рецепта -->
                         <h1 class="card-title display-4 text-center mb-4">{{ recipe.title }}</h1>
 
 
                         {% if recipe.image %}
-                            <img src="{{ recipe.image.url }}" class="card-img-top rounded-top mb-4"
+                            <img src="{{ recipe.image.url }}" class="w-50 rounded mb-4"
                                  alt="{{ recipe.title }}">
                         {% endif %}
 
@@ -32,7 +32,7 @@
                         <!-- Инструкции -->
                         <div class="mb-4">
                             <h5 class="card-subtitle mb-2 text-muted">Instructions</h5>
-                            <ul class="list-group">
+                            <ul class="list-group list-group-flush">
                                 {% for step in instructions %}
                                     <li class="list-group-item">{{ step }}</li>
                                 {% endfor %}
