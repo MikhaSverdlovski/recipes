@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,16 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y=rg&a@^@k_iosw=8z##os5kigp2^-hs@5^vv8esjfq+wk(g()'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'recipes', 'mikhaSverdlovski.pythonanywhere.com']
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,12 +84,15 @@ import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'recipes',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',  # имя контейнера базы данных
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MikhaSverdlovski$default',
+        'USER': 'MikhaSverdlovski',
+        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
+        'HOST': 'MikhaSverdlovski.mysql.pythonanywhere-services.com',  # имя контейнера базы данных
+        'charset': 'utf8',
+        'OPTIONS': {\
+            'init_command': "SET NAMES 'utf9mb4'; SET sql_mode='STRICT_TRANS_TABLES",
+            'charset': 'utf8mb4',}
     }
 }
 
@@ -127,6 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
