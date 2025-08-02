@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: recipes
+      POSTGRES_DB: v
     volumes:
       - recipes_project_postgres_data:/var/lib/postgresql/data
     ports:

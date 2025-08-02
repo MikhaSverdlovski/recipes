@@ -1,0 +1,17 @@
+.ingredients-list {
+        white-space: pre-line;
+    }
+    .steps ol {
+        counter-reset: step-counter;
+    }
+    .steps li {
+        padding-left: 2rem;
+    }
+    .steps li::before {
+        color: var(--bs-primary);
+        font-weight: bold;
+    }
+    .card {
+        border-radius: 1rem;
+        overflow: hidden;
+    }

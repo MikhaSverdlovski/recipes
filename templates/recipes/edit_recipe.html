@@ -1,40 +1,79 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit Recipe - TASTYYYY{% endblock %}
+{% block title %}Редактировать {{ recipe.title }} - TASTYYYY{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
+        <div class="col-lg-10">
+            <!-- Карточка формы -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4 p-md-5">
                     <!-- Заголовок -->
-                    <h2 class="card-title display-5 text-center mb-4">Edit Recipe: {{ recipe.title }}</h2>
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold text-primary mb-2">Редактировать рецепт</h1>
+                        <p class="text-muted">{{ recipe.title }}</p>
+                    </div>
 
-                    <!-- Форма редактирования -->
-                    <form method="POST" enctype="multipart/form-data">
+                    <!-- Форма -->
+                    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                         {% csrf_token %}
 
                         <!-- Стилизация полей формы -->
                         {% for field in form %}
-                            <div class="mb-3 row align-items-center">
-                                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label text-end">{{ field.label }}</label>
-                                <div class="col-sm-9">
-                                    {{ field }}
-                                    {% if field.errors %}
-                                        <div class="text-danger">
-                                            {{ field.errors }}
-                                        </div>
-                                    {% endif %}
+                        <div class="mb-4">
+                            <div>
+                            <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                                {% if field.name == 'title' %}
+                                <i class="bi bi-card-heading me-2"></i>
+                                {% elif field.name == 'description' %}
+                                <i class="bi bi-text-paragraph me-2"></i>
+                                {% elif field.name == 'ingredients' %}
+                                <i class="bi bi-list-check me-2"></i>
+                                {% elif field.name == 'cooking_steps' %}
+                                <i class="bi bi-list-ol me-2"></i>
+                                {% elif field.name == 'cooking_time' %}
+                                <i class="bi bi-clock me-2"></i>
+                                {% elif field.name == 'image' %}
+                                <i class="bi bi-image me-2"></i>
+                                {% if recipe.image %}
+                                <div class="mt-2">
+                                    <small>Текущее изображение:</small>
+                                    <img src="{{ recipe.image.url }}" class="img-thumbnail mt-2" width="150" alt="Current image">
                                 </div>
+                                {% endif %}
+                                {% elif field.name == 'categories' %}
+                                <i class="bi bi-tags me-2"></i>
+                                {% endif %}
+                                {{ field.label }}
+                            </label>
                             </div>
+                            <div>
+                            {{ field }}
+                            </div>
+
+                            {% if field.help_text %}
+                            <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+
+                            {% if field.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in field.errors %}
+                                <div><i class="bi bi-exclamation-circle me-1"></i> {{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
                         {% endfor %}
 
-                        <!-- Кнопка отправки формы -->
-                        <div class="row mt-4">
-                            <div class="col-sm-9 offset-sm-3">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">Update Recipe</button>
-                            </div>
+                        <!-- Кнопки формы -->
+                        <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left me-2"></i>Отмена
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-floppy2 me-2"></i> Сохранить изменения
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -42,4 +81,41 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Стили для полей формы */
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    /* Стили для ошибок */
+    .invalid-feedback {
+        color: #dc3545;
+        margin-top: 0.5rem;
+    }
+
+    /* Стили для чекбоксов категорий */
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    /* Стили для текущего изображения */
+    .img-thumbnail {
+        border-radius: 0.5rem;
+        max-height: 150px;
+        object-fit: cover;
+    }
+</style>
 {% endblock %}

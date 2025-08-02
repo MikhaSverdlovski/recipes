@@ -1,46 +1,108 @@
 {% extends 'base.html' %}
 
-{% block title %}Recipe Search - TASTYYYY{% endblock %}
+{% block title %}Поиск рецептов - TASTYYYY{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
+        <div class="col-lg-10">
+            <!-- Карточка поиска -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4 p-md-5">
                     <!-- Заголовок -->
-                    <h1 class="card-title display-4 text-center mb-4">Search for Recipes</h1>
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold text-primary mb-2">Найти рецепт</h1>
+                        <p class="text-muted">Откройте для себя новые кулинарные идеи</p>
+                    </div>
 
                     <!-- Форма поиска -->
-                    <form method="get" action="{% url 'recipe_search' %}" class="mb-4">
-                        <div class="row g-3 align-items-center w-100">
-                            <div class="col-sm-9">
-                                {{ form }}
+                    <form method="get" action="{% url 'recipe_search' %}" class="mb-5">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                                    <input type="text" name="query" class="form-control form-control-lg"
+                                           placeholder="Введите название..."
+                                           value="{{ request.GET.query }}">
+                                </div>
                             </div>
-                            <div class="col">
-                                <button type="submit" class="btn btn-info w-50"><i class="bi bi-search-heart"></i> Search</button>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100 py-2">
+                                    <i class="bi bi-search-heart me-2"></i> Найти
+                                </button>
                             </div>
                         </div>
                     </form>
 
                     <!-- Результаты поиска -->
-                    <h2 class="mb-3">Results:</h2>
                     {% if recipes %}
-                        <ul class="list-group">
+                    <div class="mt-4 pt-3 border-top">
+                        <h3 class="fw-bold mb-4">
+                            <i class="bi bi-journal-text me-2"></i>Найдено рецептов: {{ recipes.count }}
+                        </h3>
+
+                        <div class="row g-4">
                             {% for recipe in recipes %}
-                                <li class="list-group-item">
-                                    <a href="{% url 'recipe_detail' recipe_id=recipe.id %}" class="text-decoration-none">
-                                        {{ recipe.title }}
-                                    </a>
-                                </li>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    {% if recipe.image %}
+                                    <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}"
+                                         style="height: 180px; object-fit: cover;">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{% url 'recipe_detail' recipe.id %}" class="text-decoration-none text-dark">
+                                                {{ recipe.title }}
+                                            </a>
+                                        </h5>
+                                        <div class="d-flex align-items-center text-muted small">
+                                            <i class="bi bi-clock me-1"></i>
+                                            <span class="me-3">{{ recipe.cooking_time }} мин</span>
+                                            <i class="bi bi-person me-1"></i>
+                                            <span>{{ recipe.author.username }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p class="text-muted">No recipes found.</p>
+                        </div>
+                    </div>
+                    {% elif request.GET.query %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-emoji-frown display-4 text-muted mb-3"></i>
+                        <h4 class="fw-bold text-muted">Ничего не найдено</h4>
+                        <p class="text-muted">Попробуйте изменить параметры поиска</p>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Стили для совместимости с другими страницами */
+    .form-control {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .form-control:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .input-group-text {
+        border-radius: 0.5rem 0 0 0.5rem;
+    }
+
+    .card-img-top {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    }
+</style>
 {% endblock %}

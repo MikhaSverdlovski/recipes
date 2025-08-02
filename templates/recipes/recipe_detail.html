@@ -3,61 +3,85 @@
 {% block title %}{{ recipe.title }} - TASTYYYY{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <!-- Заголовок рецепта -->
-                        <h1 class="card-title display-4 text-center mb-4">{{ recipe.title }}</h1>
-
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Карточка рецепта -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4 p-md-5">
+                    <!-- Заголовок и изображение -->
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold text-primary mb-3">{{ recipe.title }}</h1>
 
                         {% if recipe.image %}
-                            <img src="{{ recipe.image.url }}" class="w-50 rounded mb-4"
-                                 alt="{{ recipe.title }}">
+                        <div class="ratio ratio-16x9 mb-4 rounded-3 overflow-hidden">
+                            <img src="{{ recipe.image.url }}" class="img-fluid object-fit-cover" alt="{{ recipe.title }}">
+                        </div>
                         {% endif %}
+                    </div>
 
-                        <!-- Описание рецепта -->
-                        <div class="mb-4">
-                            <h5 class="card-subtitle mb-2 text-muted">Description</h5>
-                            <p class="card-text">{{ recipe.description }}</p>
+                    <!-- Основная информация -->
+                    <div class="row g-4">
+                        <!-- Описание -->
+                        <div class="col-md-12">
+                            <div class="p-4 bg-light rounded-3">
+                                <h2 class="h4 text-secondary mb-3"><i class="bi bi-card-text me-2"></i>Описание</h2>
+                                <p class="mb-0">{{ recipe.description }}</p>
+                            </div>
                         </div>
 
                         <!-- Ингредиенты -->
-                        <div class="mb-4">
-                            <h5 class="card-subtitle mb-2 text-muted">Ingredients</h5>
-                            <p class="card-text">{{ recipe.ingredients }}</p>
-                        </div>
-
-                        <!-- Инструкции -->
-                        <div class="mb-4">
-                            <h5 class="card-subtitle mb-2 text-muted">Instructions</h5>
-                            <ul class="list-group list-group-flush">
-                                {% for step in instructions %}
-                                    <li class="list-group-item">{{ step }}</li>
-                                {% endfor %}
-                            </ul>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-light rounded-3 h-100">
+                                <h2 class="h4 text-secondary mb-3"><i class="bi bi-list-check me-2"></i>Ингредиенты</h2>
+                                <div class="ingredients-list">
+                                    {{ recipe.ingredients|linebreaks }}
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Время приготовления -->
-                        <div class="mb-4">
-                            <h5 class="card-subtitle mb-2 text-muted">Cooking Time</h5>
-                            <p class="card-text">{{ recipe.cooking_time }} minutes</p>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-light rounded-3 h-100">
+                                <h2 class="h4 text-secondary mb-3"><i class="bi bi-clock me-2"></i>Время приготовления</h2>
+                                <p class="display-6 text-primary">{{ recipe.cooking_time }} минут</p>
+                            </div>
                         </div>
 
-                        <!-- Кнопки действий -->
-                        <div class="d-flex justify-content-between mt-4">
-                            {% if request.user == recipe.author %}
-                                <!-- Ссылка на редактирование, если пользователь является автором -->
-                                <a href="{% url 'edit_recipe' recipe_id=recipe.id %}" class="btn btn-warning">
-                                    <i class="bi bi-pencil-fill"></i> Edit Recipe</a>
-                            {% endif %}
-                            <a href="{% url 'home' %}" class="btn btn-secondary"><i class="bi bi-house"></i> Back to
-                                Home</a>
+                        <!-- Инструкции -->
+                        <div class="col-12">
+                            <div class="p-4 bg-light rounded-3">
+                                <h2 class="h4 text-secondary mb-3"><i class="bi bi-list-ol me-2"></i>Инструкция</h2>
+                                <div class="steps">
+                                    <ol class="list-group list-group-numbered list-group-flush">
+                                        {% for step in instructions %}
+                                        <li class="list-group-item bg-transparent py-3">{{ step }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Кнопки действий -->
+                    <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>На главную
+                        </a>
+
+                        {% if request.user == recipe.author %}
+                        <div>
+                            <a href="{% url 'edit_recipe' recipe_id=recipe.id %}" class="btn btn-warning">
+                                <i class="bi bi-pencil-square me-2"></i>Редактировать
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
 {% endblock %}

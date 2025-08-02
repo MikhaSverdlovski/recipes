@@ -1,34 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - TASTYYYY!{% endblock %}
+{% block title %}Главная - TASTYYYY!{% endblock %}
 
 {% block content %}
     <div class="container mt-4">
-        <h1 class="display-4 text-center fw-bold">Welcome to TASTYYYY!</h1>
-        <p class="lead text-center text-muted">Discover and cook the most delicious recipes!</p>
+        <h1 class="display-4 text-center fw-bold">Добро пожаловать в TASTYYYY!</h1>
+        <p class="lead text-center text-muted">Изучай и готовь новое!</p>
 
         <!-- Сетка из карточек -->
         <div class="row">
             {% for recipe in recipes %}
                 <div class="col-md-4 mb-4">
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="text-decoration-none text-dark fw-bold">
+                                    {{ recipe.title }}
                     <div class="card h-100 shadow-sm rounded border-0">
                         {% if recipe.image %}
+
                             <img src="{{ recipe.image.url }}" class="card-img-top rounded" alt="{{ recipe.title }}">
                         {% endif %}
                         <div class="card-body">
                             <h3 class="card-title">
-                                <a href="{% url 'recipe_detail' recipe.id %}" class="text-decoration-none text-dark fw-bold">
-                                    {{ recipe.title }}
-                                </a>
+
+
                             </h3>
                             <p class="card-text text-muted">{{ recipe.description|truncatewords:20 }}</p>
                         </div>
+
                         <div class="card-footer bg-white border-0 text-center">
                             <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-info mb-2 px-4 py-2 rounded-pill">
-                                <i class="bi bi-search-heart"></i> View Recipe 
+                                <i class="bi bi-search-heart"></i> Подробнее
                             </a>
                         </div>
                     </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

@@ -20,7 +20,15 @@ class RecipeForm(forms.ModelForm):
         widgets = {
             'categories': forms.SelectMultiple,
         }
+        labels = {
+            'title': 'Название рецепта',
+            'description': 'Описание',
+            'cooking_steps': 'Шаги приготовления',
+            'cooking_time': 'Время приготовления (минуты)',
+            'image': 'Изображение',
+            'categories': 'Категории',
+        }
 
 
 class RecipeSearchForm(forms.Form):
-    query = forms.CharField(max_length=300, required=False, label='Search Recipes')
+    query = forms.CharField(max_length=300, required=False, label='Поиск рецепта')
