@@ -87,11 +87,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'MikhaSverdlovski$default',
         'USER': 'MikhaSverdlovski',
-        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
+        'PASSWORD': 'adminadmin',
         'HOST': 'MikhaSverdlovski.mysql.pythonanywhere-services.com',  # имя контейнера базы данных
         'charset': 'utf8',
-        'OPTIONS': {\
-            'init_command': "SET NAMES 'utf9mb4'; SET sql_mode='STRICT_TRANS_TABLES",
+        'OPTIONS': {
+            'init_command': "SET NAMES 'utf8mb4'; SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',}
     }
 }
@@ -131,7 +131,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
