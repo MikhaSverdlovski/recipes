@@ -8,7 +8,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card shadow-sm rounded-3">
                 <div class="card-body p-4">
-                    <h1 class="h3 mb-4 text-center">Register</h1>
+                    <h1 class="h3 mb-4 text-center">Регистрация</h1>
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
 
@@ -28,13 +28,13 @@
                         {% endfor %}
 
                         <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary py-2">Register</button>
+                            <button type="submit" class="btn btn-primary py-2">Регистрация</button>
                         </div>
                     </form>
 
                     <div class="mt-4 text-center">
-                        <p class="mb-0 text-muted">Already have an account?
-                            <a href="{% url 'login' %}" class="text-decoration-none">Login here</a>
+                        <p class="mb-0 text-muted">Уже есть аккаунт?
+                            <a href="{% url 'login' %}" class="text-decoration-none">Войти</a>
                         </p>
                     </div>
                 </div>
