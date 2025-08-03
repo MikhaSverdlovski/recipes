@@ -5,41 +5,37 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h1 class="card-title display-4 text-center mb-4">Register</h1>
-                    <form method="post">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4 text-center">Register</h1>
+                    <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
 
-                        <!-- Стилизация полей формы -->
                         {% for field in form %}
-                            <div class="mb-3 row align-items-center">
-                                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label text-end">{{ field.label }}</label>
-                                <div class="col-sm-9">
-                                    {{ field }}
-                                    {% if field.errors %}
-                                        <div class="text-danger">
-                                            {{ field.errors }}
-                                        </div>
-                                    {% endif %}
-                                </div>
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
                             </div>
                         {% endfor %}
 
-                        <!-- Кнопка отправки формы -->
-                        <div class="row mt-4">
-                            <div class="col-sm-9 offset-sm-3">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">Register</button>
-                            </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary py-2">Register</button>
                         </div>
                     </form>
 
-                    <!-- Ссылка на вход, если уже есть аккаунт -->
-                    <div class="row mt-3">
-                        <div class="col-sm-9 offset-sm-3">
-                            <p class="mb-0">Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login here</a></p>
-                        </div>
+                    <div class="mt-4 text-center">
+                        <p class="mb-0 text-muted">Already have an account?
+                            <a href="{% url 'login' %}" class="text-decoration-none">Login here</a>
+                        </p>
                     </div>
                 </div>
             </div>
