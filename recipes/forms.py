@@ -16,7 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'description', 'cooking_steps', 'cooking_time', 'image', 'categories']
+        fields = ['title', 'description', 'cooking_steps', 'ingredients', 'cooking_time', 'image', 'categories']
         widgets = {
             'categories': forms.SelectMultiple,
         }
@@ -24,6 +24,7 @@ class RecipeForm(forms.ModelForm):
             'title': 'Название рецепта',
             'description': 'Описание',
             'cooking_steps': 'Шаги приготовления',
+            'ingredients': 'Ингредиенты',
             'cooking_time': 'Время приготовления (минуты)',
             'image': 'Изображение',
             'categories': 'Категории',
